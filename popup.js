@@ -7,7 +7,11 @@ function onGoogleLibraryLoaded() {
 }
 
 var authorizationCallback = function (data) {
-  gapi.client.setToken({access_token: data});
+  gapi.auth.setToken({access_token: data});
   gapi.client.load("https://www.googleapis.com/discovery/v1/apis/gmail/v1/rest");
+  onLoad();
 };
 
+function onLoad(){
+  gapi.client.gmail.users.getProfile["emailAddress"];
+}

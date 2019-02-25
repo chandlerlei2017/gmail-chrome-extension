@@ -1,28 +1,40 @@
 {
-  "name": "Gmail Extension",
-  "version": "0.0.0.1",
-  "description": "Provides Gmail Functionaility in an extension!",
-  "permissions": [
-    "identity"
-  ],
-  "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAx2B4Hh5zVTFhLB3Vcp05Wfxe8KDZ1tps67a2yfCKjS0Y2avTH0SCebVseR/m/i6G54kkTusJ7USbkwKRbMQo5piYp7+qPEFjSi7RHI14zhRISXYo/hafINpunra/mFfV5hSOkzgdpZvf4DQxCglsVHexTYMx4bKsoOTLsq6oNf/IOH6TJxGUl9GtYfiWJgLLvnHhmYDcjqyw5M/q6NrG5TkjSxyH9Q5lJcWRcy7eZgPmuCyRYO+17SCYAEakx/uRiuTM1n0VCOjd7fqwTrh4DXfam8OZ31iCCnKkPNe8tyyZzXnTdQdDOmGbYNh0Er6qDuMyO7yZpPnwSJyx1jo0lQIDAQAB",
-  "oauth2": {
-    "client_id": "68543515779-fs3cna45k6bs57t094scd7vm80oa3lif.apps.googleusercontent.com",
-    "scopes": [
-      "https://mail.google.com/",
-      "https://www.googleapis.com/auth/gmail.compose",
-      "https://www.googleapis.com/auth/gmail.insert",
-      "https://www.googleapis.com/auth/gmail.metadata",
-      "https://www.googleapis.com/auth/gmail.modify",
-      "https://www.googleapis.com/auth/gmail.readonly",
-      "https://www.googleapis.com/auth/gmail.send",
-      "https://www.googleapis.com/auth/gmail.settings.basic",
-      "https://www.googleapis.com/auth/gmail.settings.sharing"
-    ]
-  },
-  "content_security_policy": "script-src 'self' https://apis.google.com; object-src 'self'",
-  "browser_action": {
-    "default_popup": "popup.html"
-  },
-  "manifest_version": 2
+    "manifest_version": 2,
+    "name": "GDE Sample: Chrome extension Google APIs",
+    "version": "2",
+    "icons": {
+        "16": "img/developers-logo.png",
+        "48": "img/developers-logo.png",
+        "128": "img/developers-logo.png"
+    },
+    "permissions": [
+        "background",
+        "identity",
+        "notifications",
+        "storage",
+        "alarms",
+        "https://www.googleapis.com/*",
+        "https://*.googleusercontent.com/*"
+    ],
+    "background": {
+        "scripts": [
+            "js/background.js"
+        ],
+        "persistent": false
+    },
+    "browser_action": {
+        "default_icon": {
+            "19": "img/gmail-logo.png",
+            "38": "img/gmail-logo.png"
+        },
+        "default_title": "Click to Sign in with Google"
+    },
+    "oauth2": {
+        "client_id": "68543515779-fs3cna45k6bs57t094scd7vm80oa3lif.apps.googleusercontent.com",
+        "scopes": [
+            "profile",
+            "https://www.googleapis.com/auth/gmail.readonly"
+        ]
+    },
+    "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAx2B4Hh5zVTFhLB3Vcp05Wfxe8KDZ1tps67a2yfCKjS0Y2avTH0SCebVseR/m/i6G54kkTusJ7USbkwKRbMQo5piYp7+qPEFjSi7RHI14zhRISXYo/hafINpunra/mFfV5hSOkzgdpZvf4DQxCglsVHexTYMx4bKsoOTLsq6oNf/IOH6TJxGUl9GtYfiWJgLLvnHhmYDcjqyw5M/q6NrG5TkjSxyH9Q5lJcWRcy7eZgPmuCyRYO+17SCYAEakx/uRiuTM1n0VCOjd7fqwTrh4DXfam8OZ31iCCnKkPNe8tyyZzXnTdQdDOmGbYNh0Er6qDuMyO7yZpPnwSJyx1jo0lQIDAQAB"
 }
