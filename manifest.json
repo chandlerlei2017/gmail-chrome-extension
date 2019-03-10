@@ -34,7 +34,9 @@
         "client_id": "68543515779-fs3cna45k6bs57t094scd7vm80oa3lif.apps.googleusercontent.com",
         "scopes": [
             "profile",
-            "https://www.googleapis.com/auth/gmail.readonly"
+            "https://www.googleapis.com/auth/gmail.readonly",
+            "https://mail.google.com/"
+
         ]
     },
     "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAx2B4Hh5zVTFhLB3Vcp05Wfxe8KDZ1tps67a2yfCKjS0Y2avTH0SCebVseR/m/i6G54kkTusJ7USbkwKRbMQo5piYp7+qPEFjSi7RHI14zhRISXYo/hafINpunra/mFfV5hSOkzgdpZvf4DQxCglsVHexTYMx4bKsoOTLsq6oNf/IOH6TJxGUl9GtYfiWJgLLvnHhmYDcjqyw5M/q6NrG5TkjSxyH9Q5lJcWRcy7eZgPmuCyRYO+17SCYAEakx/uRiuTM1n0VCOjd7fqwTrh4DXfam8OZ31iCCnKkPNe8tyyZzXnTdQdDOmGbYNh0Er6qDuMyO7yZpPnwSJyx1jo0lQIDAQAB"
