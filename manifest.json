@@ -27,7 +27,8 @@
             "19": "img/gmail-logo.png",
             "38": "img/gmail-logo.png"
         },
-        "default_title": "Click to Sign in with Google"
+        "default_title": "Click to Sign in with Google",
+        "default_popup": "popup.html"
     },
     "oauth2": {
         "client_id": "68543515779-fs3cna45k6bs57t094scd7vm80oa3lif.apps.googleusercontent.com",
