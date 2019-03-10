@@ -262,7 +262,7 @@ function setBadgeCount(count) {
  * User clicked on browserAction button. Check if user is authenticated.
  *
  * @param {object} tab - Chrome tab resource.
- */
+
 function browserActionClicked(tab) {
     getAuthToken({
         'interactive': false,
@@ -274,7 +274,7 @@ function browserActionClicked(tab) {
  * If user is authenticated open Gmail in new tab or start auth flow.
  *
  * @param {string} token - Current users access_token.
- */
+
 function getBrowserActionAuthTokenCallback(token) {
     if (chrome.runtime.lastError) {
         getAuthTokenInteractive();
@@ -283,6 +283,8 @@ function getBrowserActionAuthTokenCallback(token) {
     }
 
 }
+
+ */
 
 /**
  * Chrome alarm has triggered.
@@ -300,7 +302,7 @@ function onAlarm(alarm) {
  * Wire up Chrome event listeners.
  */
 chrome.notifications.onClicked.addListener(notificationClicked);
-chrome.browserAction.onClicked.addListener(browserActionClicked);
+//chrome.browserAction.onClicked.addListener(browserActionClicked);
 chrome.alarms.onAlarm.addListener(onAlarm);
 
 /**
