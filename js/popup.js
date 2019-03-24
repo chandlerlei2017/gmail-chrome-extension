@@ -61,10 +61,9 @@ function populatePopup() {
   });
 }
 
-
 function populatePopupCallback(token){
   get({
-      'url': 'https://www.googleapis.com/gmail/v1/users/me/messages?labelIds=CATEGORY_PERSONAL&maxResults=5&q=is%3Aunread',
+      'url': 'https://www.googleapis.com/gmail/v1/users/me/messages?labelIds=CATEGORY_PERSONAL&maxResults=10&q=is%3Aunread',
       'callback': messageList,
       'token': token,
   });
@@ -86,20 +85,36 @@ function getMessage(id) {
 
 function getMessageCallback(token, id) {
   get({
-    'url': 'https://www.googleapis.com/gmail/v1/users/me/messages/' + id,
+    'url': 'https://www.googleapis.com/gmail/v1/users/me/messages/' + id + '?format=full',
     'callback': message,
     'token': token,
   });
 }
 
 function message(message) {
-    var para = document.createElement("p");
-    var node = document.createTextNode(message.id);
-    para.appendChild(node);
+    var block = document.createElement("div");
+
+    var name = document.createElement("h3");
+    var node1 = document.createTextNode(getSubject(message).name);
+    name.appendChild(node1);
+
+    var email = document.createElement("p");
+    var node2 = document.createTextNode(getSubject(message).email);
+    email.appendChild(node2);
+
+    block.appendChild(name);
+    block.appendChild(email);
+
     var element = document.getElementById("message-block");
-    element.appendChild(para);
+    element.appendChild(block);
 }
 
+function getSubject(message) {
+  temp = message.payload.headers.find(element => element.name === 'From').value;
+  name = temp.substring(0, temp.indexOf("<") - 1);
+  email = temp.substring(temp.indexOf("<") + 1 , temp.length - 1);
+  return {name: name, email: email};
+}
 /**
  * Make an authenticated HTTP GET request.
  *
