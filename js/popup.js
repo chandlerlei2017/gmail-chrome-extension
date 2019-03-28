@@ -61,10 +61,9 @@ function populatePopup() {
   });
 }
 
-
 function populatePopupCallback(token){
   get({
-      'url': 'https://www.googleapis.com/gmail/v1/users/me/messages?labelIds=CATEGORY_PERSONAL&maxResults=5&q=is%3Aunread',
+      'url': 'https://www.googleapis.com/gmail/v1/users/me/messages?labelIds=CATEGORY_PERSONAL&maxResults=10&q=is%3Aunread',
       'callback': messageList,
       'token': token,
   });
@@ -86,20 +85,51 @@ function getMessage(id) {
 
 function getMessageCallback(token, id) {
   get({
-    'url': 'https://www.googleapis.com/gmail/v1/users/me/messages/' + id,
+    'url': 'https://www.googleapis.com/gmail/v1/users/me/messages/' + id + '?format=full',
     'callback': message,
     'token': token,
   });
 }
 
 function message(message) {
-    var para = document.createElement("p");
-    var node = document.createTextNode(message.id);
-    para.appendChild(node);
-    var element = document.getElementById("message-block");
-    element.appendChild(para);
+    var blockLeft = $("<div></div>");
+    var blockRight = $("<div></div>");
+
+    var divider = $("<div></div>");
+    divider.append("<hr/>");
+
+    blockLeft.addClass("col-sm-4");
+    blockRight.addClass("col-sm-8");
+    divider.addClass("col-sm-12");
+
+    var name = document.createElement("h5");
+    name.innerHTML = getElements(message).name;
+
+    var email = document.createElement("p");
+    email.innerHTML = getElements(message).email;
+
+    var subject = document.createElement("p");
+    subject.innerHTML = getElements(message).subject;
+
+    blockLeft.append(name);
+    blockLeft.append(email);
+    blockRight.append(subject);
+
+    var element = $("#message-block");
+    element.append(blockLeft);
+    element.append(blockRight);
+    element.append(divider);
 }
 
+function getElements(message) {
+  senderTemp = message.payload.headers.find(element => element.name === 'From').value;
+  name = senderTemp.substring(0, senderTemp.indexOf("<") - 1);
+  email = senderTemp.substring(senderTemp.indexOf("<") + 1 , senderTemp.length - 1);
+
+  subject = message.payload.headers.find(element => element.name === 'Subject').value;
+
+  return {name: name, email: email, subject: subject};
+}
 /**
  * Make an authenticated HTTP GET request.
  *
