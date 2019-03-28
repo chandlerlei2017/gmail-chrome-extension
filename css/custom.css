@@ -1,4 +1,13 @@
 body {
   width: 600px;
   height: 800px;
+  padding: 20px;
+}
+
+hr{
+  margin-top: 0rem !important;
+}
+
+#temp{
+  padding-bottom: 20px;
 }

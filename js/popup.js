@@ -92,28 +92,43 @@ function getMessageCallback(token, id) {
 }
 
 function message(message) {
-    var block = document.createElement("div");
+    var blockLeft = $("<div></div>");
+    var blockRight = $("<div></div>");
 
-    var name = document.createElement("h3");
-    var node1 = document.createTextNode(getSubject(message).name);
-    name.appendChild(node1);
+    var divider = $("<div></div>");
+    divider.append("<hr/>");
+
+    blockLeft.addClass("col-sm-4");
+    blockRight.addClass("col-sm-8");
+    divider.addClass("col-sm-12");
+
+    var name = document.createElement("h5");
+    name.innerHTML = getElements(message).name;
 
     var email = document.createElement("p");
-    var node2 = document.createTextNode(getSubject(message).email);
-    email.appendChild(node2);
+    email.innerHTML = getElements(message).email;
 
-    block.appendChild(name);
-    block.appendChild(email);
+    var subject = document.createElement("p");
+    subject.innerHTML = getElements(message).subject;
 
-    var element = document.getElementById("message-block");
-    element.appendChild(block);
+    blockLeft.append(name);
+    blockLeft.append(email);
+    blockRight.append(subject);
+
+    var element = $("#message-block");
+    element.append(blockLeft);
+    element.append(blockRight);
+    element.append(divider);
 }
 
-function getSubject(message) {
-  temp = message.payload.headers.find(element => element.name === 'From').value;
-  name = temp.substring(0, temp.indexOf("<") - 1);
-  email = temp.substring(temp.indexOf("<") + 1 , temp.length - 1);
-  return {name: name, email: email};
+function getElements(message) {
+  senderTemp = message.payload.headers.find(element => element.name === 'From').value;
+  name = senderTemp.substring(0, senderTemp.indexOf("<") - 1);
+  email = senderTemp.substring(senderTemp.indexOf("<") + 1 , senderTemp.length - 1);
+
+  subject = message.payload.headers.find(element => element.name === 'Subject').value;
+
+  return {name: name, email: email, subject: subject};
 }
 /**
  * Make an authenticated HTTP GET request.
