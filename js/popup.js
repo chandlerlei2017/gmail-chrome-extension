@@ -1,4 +1,4 @@
-function popupClicked(tab) {
+function popupClicked() {
   getAuthToken({
       'interactive': false,
       'callback': AuthTokenCallback,
@@ -13,57 +13,25 @@ function AuthTokenCallback(token) {
 
 function getAuthTokenInteractive() {
   getAuthToken({
-      'interactive': true,
-      'callback': getAuthTokenInteractiveCallback,
+      'interactive': true
   });
-}
-
-function getAuthTokenInteractiveCallback(token) {
-  // Catch chrome error if user is not authorized.
-  if (chrome.runtime.lastError) {
-      showAuthNotification();
-  }
 }
 
 function getAuthToken(options) {
   chrome.identity.getAuthToken({ 'interactive': options.interactive }, options.callback);
 }
 
-
-// Notifications
-
-function showAuthNotification() {
-  var options = {
-      'id': 'start-auth',
-      'iconUrl': 'img/developers-logo.png',
-      'title': 'GDE Sample: Chrome extension Google APIs',
-      'message': 'Click here to authorize access to Gmail',
-  };
-  createBasicNotification(options);
-}
-
-function createBasicNotification(options) {
-  var notificationOptions = {
-      'type': 'basic',
-      'iconUrl': options.iconUrl, // Relative to Chrome dir or remote URL must be whitelisted in manifest.
-      'title': options.title,
-      'message': options.message,
-      'isClickable': true,
-  };
-  chrome.notifications.create(options.id, notificationOptions, function(notificationId) {});
-}
-
 // List Most Recent Messages
 function populatePopup() {
   getAuthToken({
       'interactive': false,
-      'callback': populatePopupCallback
+      'callback': getMessageList
   });
 }
 
-function populatePopupCallback(token){
+function getMessageList(token){
   get({
-      'url': 'https://www.googleapis.com/gmail/v1/users/me/messages?labelIds=CATEGORY_PERSONAL&maxResults=10&q=is%3Aunread',
+      'url': 'https://www.googleapis.com/gmail/v1/users/me/messages?labelIds=CATEGORY_PERSONAL&maxResults=100&q=is%3Aunread',
       'callback': messageList,
       'token': token,
   });
