@@ -1,3 +1,15 @@
+var currentYear;
+var currentMonth;
+var currentDay;
+
+function setDate() {
+  var today = new Date();
+  today.setDate(today.getDate() - 7);
+  currentYear = String(today.getFullYear());
+  currentMonth = String(today.getMonth() + 1).padStart(2, '0');
+  currentDay = String(today.getDate()).padStart(2, '0');
+}
+
 function popupClicked() {
   getAuthToken({
       'interactive': false,
@@ -31,7 +43,8 @@ function populatePopup() {
 
 function getMessageList(token){
   get({
-      'url': 'https://www.googleapis.com/gmail/v1/users/me/messages?labelIds=CATEGORY_PERSONAL&maxResults=100&q=is%3Aunread',
+      'url': 'https://www.googleapis.com/gmail/v1/users/me/messages?labelsId=INBOX'
+       + '&q=after' + '%3A' + currentYear + '%2F' + currentMonth + '%2F' + currentDay + '%20is%3Aunread',
       'callback': messageList,
       'token': token,
   });
@@ -60,6 +73,9 @@ function getMessageCallback(token, id) {
 }
 
 function message(message) {
+    if (message.labelIds.includes("CATEGORY_PROMOTIONS") || message.labelIds.includes("CATEGORY_SOCIAL") ){
+      return;
+    }
     var blockLeft = $("<div></div>");
     var blockRight = $("<div></div>");
 
@@ -122,5 +138,6 @@ function get(options) {
   xhr.send();
 }
 
+setDate();
 popupClicked();
 populatePopup();
